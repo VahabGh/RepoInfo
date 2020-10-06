@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="listItem"
+            type="com.vahabgh.core.domain.GitRepo" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:id="@+id/iv_repo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/xxx_space"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorAccent"
+            android:contentDescription="@string/its_repo_icon"
+             />
+
+        <TextView
+            android:id="@+id/tv_repo_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{listItem.repoName}"
+            android:layout_marginStart="@dimen/xxx_space"
+            android:layout_marginEnd="@dimen/xxx_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_repo"
+            app:layout_constraintTop_toTopOf="@id/iv_repo"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/xx_text_size"
+            tools:text="RepoName" />
+
+        <TextView
+            android:id="@+id/tv_repo_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{listItem.createDate}"
+            android:layout_marginStart="@dimen/xxx_space"
+            app:layout_constraintStart_toEndOf="@id/iv_repo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_repo"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/x_text_size"
+            tools:text="RepoName" />
+
+        <FrameLayout
+            android:id="@+id/view_click"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

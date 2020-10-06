@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.vahabgh.repoinfo.presentation.ui.repodetail.DetailRepoViewModel" />
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.repodetail.RepoDetailFragment">
+
+    <ImageView
+        android:id="@+id/iv_repo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/xxxx_space"
+        android:layout_marginStart="@dimen/xxx_space"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:background="@color/colorAccent"/>
+
+    <TextView
+        android:id="@+id/tv_repo_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/xxx_text_size"
+        android:textColor="@color/textColorPrimary"
+        android:layout_marginStart="@dimen/xxx_space"
+        android:text="@{vm.repo.ownerName}"
+        app:layout_constraintTop_toTopOf="@id/iv_repo"
+        app:layout_constraintBottom_toBottomOf="@id/iv_repo"
+        app:layout_constraintStart_toEndOf="@id/iv_repo"
+        tools:text="VahabGh/repoName"
+        />
+
+    <View
+        android:id="@+id/v_stars"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/xxxx_space"
+        tools:background="@color/textColorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/first"
+        app:layout_constraintTop_toBottomOf="@id/iv_repo"/>
+
+    <View
+        android:id="@+id/v_fork"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/xxxx_space"
+        tools:background="@color/textColorPrimary"
+        app:layout_constraintStart_toEndOf="@id/first"
+        app:layout_constraintEnd_toStartOf="@id/second"
+        app:layout_constraintTop_toBottomOf="@id/iv_repo"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+
+    <TextView
+        android:id="@+id/tv_repo_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColorSecondary"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/xxx_space"
+        android:layout_marginEnd="@dimen/xxx_space"
+        android:text="@{vm.repo.description}"
+        app:layout_constraintTop_toBottomOf="@id/v_fork"
+        tools:text="Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it."
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

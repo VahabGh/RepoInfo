@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.vahabgh.repoinfo.presentation.ui.boot.BootViewModel" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/textColorPrimary"
+        tools:context=".presentation.ui.boot.BootActivity">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/git_hib_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorPrimary" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/xxxx_space"
+            android:layout_marginBottom="@dimen/xxxx_space"
+            android:visibility="@{vm.showLoading.booleanValue() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxxx_space"
+            android:gravity="center"
+            android:paddingStart="@dimen/xx_space"
+            android:paddingEnd="@dimen/xx_space"
+            android:text="@string/failed_operation_message"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/xx_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/xxx_space"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingStart="@dimen/xx_space"
+            android:paddingEnd="@dimen/xx_space"
+            android:text="@string/retry"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/xx_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.showLoading.booleanValue() ? View.GONE : View.VISIBLE}"
+            app:constraint_referenced_ids="tv_message,btn_retry" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

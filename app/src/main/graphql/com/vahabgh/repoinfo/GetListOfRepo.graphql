@@ -1,0 +1,26 @@
+query GetListOfRepo($start: String!, $end: String!) {
+    search(query: "is:public", type: REPOSITORY first : 20 after : $start before : $end) {
+        pageInfo{
+            hasNextPage
+            startCursor
+            endCursor
+        }
+        edges {
+            node {
+                ... on Repository {
+                    id
+                    name
+                    createdAt
+                    description
+                    forkCount
+                    stargazerCount
+                    nameWithOwner
+                    url
+                }
+            }
+        }
+    }
+}
+
+
+#(first: $first, query: $query, type: $type)
