@@ -2,6 +2,9 @@ package com.vahabgh.repoinfo.presentation.ui.repodetail
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
+import com.vahabgh.repoinfo.BR
 import com.vahabgh.repoinfo.R
 import com.vahabgh.repoinfo.databinding.FragmentRepoDetailBinding
 import com.vahabgh.repoinfo.presentation.ui.base.BaseFragment
@@ -15,34 +18,19 @@ class RepoDetailFragment : BaseFragment<DetailRepoViewModel,FragmentRepoDetailBi
 
     override val viewModel: DetailRepoViewModel by viewModels()
 
-    override fun bindObservables() {
+    val args: RepoDetailFragmentArgs by navArgs()
 
+    override fun bindObservables() {
+        if (!viewModel.repo.hasObservers()){
+            viewModel.repo.observe(viewLifecycleOwner, Observer {
+                binding?.setVariable(BR.gitRepo,it)
+                binding?.executePendingBindings()
+            })
+        }
     }
 
     override fun config() {
-        handleBundle()
-//        viewModel.getRepoById(repoId)
-    }
-
-    var repoId : String = ""
-
-    private fun handleBundle() {
-        if (arguments?.containsKey(ID) == true)
-            repoId = requireArguments().getString(ID) ?: ""
-    }
-
-    companion object{
-
-        const val ID = "id"
-
-        fun newInstance(id : String) : RepoDetailFragment{
-            return RepoDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ID,id)
-                }
-            }
-        }
-
+        viewModel.getRepoById(args.repoId)
     }
 
 }

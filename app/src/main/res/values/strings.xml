@@ -3,4 +3,5 @@
     <string name="failed_operation_message">Operation failed please try again</string>
     <string name="retry">Retry</string>
     <string name="its_repo_icon">Its Repo icon</string>
+    <string name="it_is_git_logo">It is git logo</string>
 </resources>

@@ -36,6 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         bindObservables()
+        initBinding()
         return binding!!.root
     }
 

@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="gitRepo"
+            type="com.vahabgh.core.domain.GitRepo" />
+
+        <variable
             name="vm"
             type="com.vahabgh.repoinfo.presentation.ui.repodetail.DetailRepoViewModel" />
 
@@ -24,7 +28,8 @@
         android:layout_marginStart="@dimen/xxx_space"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:background="@color/colorAccent"/>
+        android:contentDescription="@string/it_is_git_logo"
+        android:background="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/tv_repo_owner"
@@ -33,7 +38,7 @@
         android:textSize="@dimen/xxx_text_size"
         android:textColor="@color/textColorPrimary"
         android:layout_marginStart="@dimen/xxx_space"
-        android:text="@{vm.repo.ownerName}"
+        android:text="@{gitRepo.ownerName}"
         app:layout_constraintTop_toTopOf="@id/iv_repo"
         app:layout_constraintBottom_toBottomOf="@id/iv_repo"
         app:layout_constraintStart_toEndOf="@id/iv_repo"
@@ -83,7 +88,7 @@
         android:layout_marginTop="@dimen/xxx_space"
         android:layout_marginStart="@dimen/xxx_space"
         android:layout_marginEnd="@dimen/xxx_space"
-        android:text="@{vm.repo.description}"
+        android:text="@{gitRepo.description}"
         app:layout_constraintTop_toBottomOf="@id/v_fork"
         tools:text="Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it."
         />

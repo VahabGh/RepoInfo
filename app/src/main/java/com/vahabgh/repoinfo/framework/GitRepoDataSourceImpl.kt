@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.lang.Exception
 
 class GitRepoDataSourceImpl(
     private val apolloClient: ApolloClient,
@@ -105,7 +106,7 @@ class GitRepoDataSourceImpl(
     override suspend fun getRepoById(id: String): Flow<ResponseData<GitRepo>> {
         return flow<ResponseData<GitRepo>> {
             dataBase.gitRepoDao().getById(id).apply {
-                GitRepo(
+                emit(ResponseData.success(GitRepo(
                     this.repoId,
                     this.ownerName,
                     this.repoName,
@@ -115,7 +116,8 @@ class GitRepoDataSourceImpl(
                     this.starCount,
                     null,
                     this.repoUrl
-                )
+                )))
+                return@flow
             }
         }.flowOn(Dispatchers.IO)
     }
