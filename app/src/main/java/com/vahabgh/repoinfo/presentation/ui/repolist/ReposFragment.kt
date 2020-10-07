@@ -2,10 +2,13 @@ package com.vahabgh.repoinfo.presentation.ui.repolist
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vahabgh.core.domain.GitRepo
+import com.vahabgh.core.domain.GitRepoData
 import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.R
 import com.vahabgh.repoinfo.databinding.FragmentReposBinding
@@ -58,7 +61,7 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     }
 
     private fun setData(items: List<Any>?) {
-        if (reposAdapter == null) {
+        if (rv_repo.adapter == null) {
             reposAdapter = ReposAdapter(items as MutableList<Any>, ::onItemClick, ::retryDelegate)
             reposAdapter!!.addFooter()
             rv_repo.adapter = reposAdapter
@@ -66,6 +69,9 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     }
 
     override fun config() {
+        if(viewModel.repo.value !=null){
+            return
+        }
         addScrollListener()
         viewModel.getAllRepos(pageIndex)
     }
@@ -79,7 +85,9 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     }
 
     private fun onItemClick(gitRepo: GitRepo) {
-        (activity as? MainActivity)?.navigatToDetail(gitRepo.id)
+        ReposFragmentDirections.actionReposFragmentToRepoDetailFragment(repoId = gitRepo.id).let {
+            findNavController().navigate(it)
+        }
     }
 
     private fun retryDelegate() {

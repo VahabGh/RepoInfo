@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/reposFragment">
+    <fragment
+        android:id="@+id/reposFragment"
+        android:name="com.vahabgh.repoinfo.presentation.ui.repolist.ReposFragment"
+        android:label="ReposFragment" >
+        <action
+            android:id="@+id/action_reposFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            >
+            <argument
+                android:name="repoId"
+                app:argType="string"
+                />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/repoDetailFragment"
+        android:name="com.vahabgh.repoinfo.presentation.ui.repodetail.RepoDetailFragment"
+        android:label="RepoDetailFragment" >
+        <argument
+            android:name="repoId"
+            app:argType="string"
+            />
+    </fragment>
+</navigation>

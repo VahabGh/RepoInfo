@@ -14,25 +14,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setFragment()
-
-    }
-
-    private fun setFragment() {
-        supportFragmentManager.
-        beginTransaction().
-        add(R.id.fr_container, ReposFragment(),"Repos")
-            .commitNow()
-    }
-
-    fun navigatToDetail(id: String) {
-        try {
-
-            supportFragmentManager.beginTransaction().
-            add(R.id.fr_container, RepoDetailFragment.newInstance(id),"ReposDetail")
-                .commitNow()
-        } catch (exeption : Exception){
-            exeption.printStackTrace()
-        }
     }
 }

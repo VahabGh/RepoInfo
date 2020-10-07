@@ -26,7 +26,7 @@ class DetailRepoViewModel @ViewModelInject constructor(private val interactors: 
         viewModelScope.launch {
             interactors.getRepoById.invoke(id).single().fold({
                 hideProgress()
-                _repo.postValue(it)
+                _repo.value = it
             }, {
                 hideProgress()
             })
