@@ -16,11 +16,12 @@ class RepoDetailFragment : BaseFragment<DetailRepoViewModel,FragmentRepoDetailBi
     override val viewModel: DetailRepoViewModel by viewModels()
 
     override fun bindObservables() {
+
     }
 
     override fun config() {
         handleBundle()
-        viewModel.getRepoById(repoId)
+//        viewModel.getRepoById(repoId)
     }
 
     var repoId : String = ""

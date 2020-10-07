@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 class DetailRepoViewModel @ViewModelInject constructor(private val interactors: RepoDetailInteractors) :
     BaseViewModel() {
 
-
     private val _repo = MutableLiveData<GitRepo>()
     val repo: LiveData<GitRepo>
         get() = _repo
@@ -27,7 +26,7 @@ class DetailRepoViewModel @ViewModelInject constructor(private val interactors: 
         viewModelScope.launch {
             interactors.getRepoById.invoke(id).single().fold({
                 hideProgress()
-                _repo.value = it
+                _repo.postValue(it)
             }, {
                 hideProgress()
             })

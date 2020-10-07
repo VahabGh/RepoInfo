@@ -85,7 +85,6 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     private fun retryDelegate() {
         reposAdapter?.hideFooterError()
         viewModel.getAllRepos(pageIndex)
-
     }
 
 }

@@ -6,6 +6,8 @@ import com.vahabgh.repoinfo.R
 import com.vahabgh.repoinfo.presentation.ui.repodetail.RepoDetailFragment
 import com.vahabgh.repoinfo.presentation.ui.repolist.ReposFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.handleCoroutineException
+import java.lang.Exception
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setFragment()
+
     }
 
     private fun setFragment() {
@@ -23,9 +26,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navigatToDetail(id: String) {
-        supportFragmentManager.
-        beginTransaction().
-        add(R.id.fr_container, RepoDetailFragment.newInstance(id),"ReposDetail")
-            .commitNow()
+        try {
+
+            supportFragmentManager.beginTransaction().
+            add(R.id.fr_container, RepoDetailFragment.newInstance(id),"ReposDetail")
+                .commitNow()
+        } catch (exeption : Exception){
+            exeption.printStackTrace()
+        }
     }
 }

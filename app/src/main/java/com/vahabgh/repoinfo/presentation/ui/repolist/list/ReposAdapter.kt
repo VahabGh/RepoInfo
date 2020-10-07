@@ -8,6 +8,7 @@ import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.repoinfo.R
 import com.vahabgh.repoinfo.databinding.ViewHolderFooterLoadingBinding
 import com.vahabgh.repoinfo.databinding.ViewHolderRepoItemBinding
+import com.vahabgh.repoinfo.presentation.db.GitRepoEntity
 import java.lang.IllegalArgumentException
 
 class ReposAdapter(
@@ -19,16 +20,16 @@ class ReposAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         if (viewType == R.layout.view_holder_footer_loading)
-            FooterViewHolder(
+            return FooterViewHolder(
                 ViewHolderFooterLoadingBinding.inflate(inflater, parent, false),
                 retryDelegate
             )
         if (viewType == R.layout.view_holder_repo_item)
-            RepoItemViewHolder(
+            return RepoItemViewHolder(
                 ViewHolderRepoItemBinding.inflate(inflater, parent, false),
                 onItemClick
             )
-        return BaseViewHolder(DataBindingUtil.inflate(inflater, viewType, parent, false))
+        throw IllegalArgumentException("There is no viewHolder match this type")
     }
 
     override fun getItemCount(): Int {
@@ -37,9 +38,9 @@ class ReposAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FooterViewHolder)
-            holder.bind(items[position])
+            holder.bind(items[position] as FooterLoading)
         if (holder is RepoItemViewHolder)
-            holder.bind(items[position])
+            holder.bind(items[position] as GitRepo)
     }
 
     override fun getItemViewType(position: Int): Int {
