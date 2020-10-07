@@ -6,7 +6,6 @@ import com.vahabgh.core.data.GitRepoRepository
 import com.vahabgh.core.interactors.GetReposUseCase
 import com.vahabgh.core.interactors.SaveReposUseCase
 import com.vahabgh.repoinfo.GetListOfRepoQuery
-import com.vahabgh.repoinfo.framework.RepoListDataSource
 import com.vahabgh.repoinfo.framework.RepoListInteractors
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import dagger.Module

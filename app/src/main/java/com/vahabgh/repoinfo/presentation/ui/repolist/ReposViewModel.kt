@@ -4,8 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.vahabgh.core.domain.GitRepoData
-import com.vahabgh.core.domain.PageInfo
+import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.repoinfo.framework.RepoListInteractors
 import com.vahabgh.repoinfo.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.single
@@ -15,8 +14,8 @@ class ReposViewModel @ViewModelInject constructor(private val interactors: RepoL
     BaseViewModel() {
 
 
-    private val _repos = MutableLiveData<GitRepoData>()
-    val repo: LiveData<GitRepoData>
+    private val _repos = MutableLiveData<List<GitRepo>>()
+    val repo: LiveData<List<GitRepo>>
         get() = _repos
 
     private val _pagination = MutableLiveData<Int>()
@@ -29,10 +28,20 @@ class ReposViewModel @ViewModelInject constructor(private val interactors: RepoL
         viewModelScope.launch {
             interactors.getReposUseCase.invoke(pageIndex).single().fold({ data ->
                 hideProgress()
-                _repos.value = data
+                _repos.value = sortData(data)
             }, {
                 hideProgress()
             })
+        }
+    }
+
+    var  descending = true
+
+    private fun sortData(data: List<GitRepo>): List<GitRepo>? {
+        return if (descending){
+            data.sortedByDescending { it.createDateInMillis }
+        } else {
+            data.sortedBy { it.createDateInMillis }
         }
     }
 

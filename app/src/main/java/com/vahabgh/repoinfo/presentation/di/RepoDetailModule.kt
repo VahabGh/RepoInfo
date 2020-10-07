@@ -1,15 +1,8 @@
 package com.vahabgh.repoinfo.presentation.di
 
-import com.apollographql.apollo.ApolloClient
-import com.vahabgh.core.data.GitRepoDataSource
 import com.vahabgh.core.data.GitRepoRepository
 import com.vahabgh.core.interactors.GetRepoByIdUseCase
-import com.vahabgh.core.interactors.GetReposUseCase
-import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
-import com.vahabgh.repoinfo.framework.RepoDetailDataSource
 import com.vahabgh.repoinfo.framework.RepoDetailInteractors
-import com.vahabgh.repoinfo.framework.RepoListDataSource
-import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

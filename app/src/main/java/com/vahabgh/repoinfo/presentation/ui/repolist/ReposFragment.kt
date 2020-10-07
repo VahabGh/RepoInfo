@@ -1,18 +1,11 @@
 package com.vahabgh.repoinfo.presentation.ui.repolist
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.vahabgh.core.domain.GitRepo
-import com.vahabgh.core.domain.GitRepoData
-import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.R
 import com.vahabgh.repoinfo.databinding.FragmentReposBinding
-import com.vahabgh.repoinfo.presentation.ui.MainActivity
 import com.vahabgh.repoinfo.presentation.ui.base.BaseFragment
 import com.vahabgh.repoinfo.presentation.ui.repolist.list.EndlessScrollListener
 import com.vahabgh.repoinfo.presentation.ui.repolist.list.ReposAdapter
@@ -34,7 +27,7 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     override fun bindObservables() {
         if (!viewModel.repo.hasObservers())
             viewModel.repo.observe(viewLifecycleOwner, Observer {
-                setData(it.gitRepos)
+                setData(it)
                 pageIndex++
             })
 
@@ -69,7 +62,7 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     }
 
     override fun config() {
-        if(viewModel.repo.value !=null){
+        if (viewModel.repo.value != null) {
             return
         }
         addScrollListener()

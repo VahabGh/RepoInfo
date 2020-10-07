@@ -7,7 +7,6 @@ import com.vahabgh.core.interactors.GetFirstReposUseCase
 import com.vahabgh.core.interactors.SaveReposUseCase
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
-import com.vahabgh.repoinfo.framework.BootDataSource
 import com.vahabgh.repoinfo.framework.BootInteractors
 import com.vahabgh.repoinfo.framework.GitRepoDataSourceImpl
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase

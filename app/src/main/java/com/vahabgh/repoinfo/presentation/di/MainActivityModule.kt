@@ -6,7 +6,6 @@ import com.vahabgh.core.data.GitRepoRepository
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.framework.GitRepoDataSourceImpl
-import com.vahabgh.repoinfo.framework.RepoListDataSource
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import dagger.Module
 import dagger.Provides

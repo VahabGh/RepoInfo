@@ -3,28 +3,12 @@ package com.vahabgh.repoinfo.framework
 import android.annotation.SuppressLint
 import com.vahabgh.core.data.ResponseData
 import com.vahabgh.core.domain.GitRepo
-import com.vahabgh.core.domain.GitRepoData
-import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.presentation.db.GitRepoEntity
 import java.text.SimpleDateFormat
 
 object GitRepoDataMapper {
-
-
-    fun getPageInfoFirst(
-        pageIndex: Int,
-        pageInfo: GetFirstListOfRepositoriesQuery.PageInfo?
-    ): PageInfo? {
-        return pageInfo?.let {
-            PageInfo(
-                pageIndex,
-                it.startCursor ?: "",
-                it.endCursor ?: ""
-            )
-        }
-    }
 
     fun mapRepoListFromServerFirst(edges: List<GetFirstListOfRepositoriesQuery.Edge?>?): List<GitRepo>? {
         return edges?.mapNotNull {
@@ -42,20 +26,6 @@ object GitRepoDataMapper {
                     repoItem.url as? String ?: ""
                 )
             }
-        }
-    }
-
-
-    fun getPageInfo(
-        pageIndex: Int,
-        pageInfo: GetListOfRepoQuery.PageInfo?
-    ): PageInfo? {
-        return pageInfo?.let {
-            PageInfo(
-                pageIndex,
-                it.startCursor ?: "",
-                it.endCursor ?: ""
-            )
         }
     }
 
@@ -78,12 +48,8 @@ object GitRepoDataMapper {
         }
     }
 
-    fun mapDataFromDb(localData: List<GitRepoEntity>): ResponseData<GitRepoData> {
-
-        var pageIndex = 0
-
+    fun mapDataFromDb(localData: List<GitRepoEntity>): ResponseData<List<GitRepo>> {
         val mappedItem = localData.map { repoItem ->
-            pageIndex = repoItem.pageIndex
             GitRepo(
                 repoItem.repoId,
                 repoItem.ownerName,
@@ -98,11 +64,11 @@ object GitRepoDataMapper {
             )
         }
 
-        return ResponseData.success(GitRepoData(PageInfo(pageIndex + 1, "", ""), mappedItem))
+        return ResponseData.success(mappedItem)
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun convertDateToMillis(createDate: String?): Long {
+    fun convertDateToMillis(createDate: String?): Long {
         if (createDate == null) return 0
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 //            parser.timeZone = TimeZone.getTimeZone("UTC")

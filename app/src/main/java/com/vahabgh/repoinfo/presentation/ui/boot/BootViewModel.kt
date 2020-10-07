@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.vahabgh.core.domain.GitRepoData
+import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.repoinfo.framework.BootInteractors
 import com.vahabgh.repoinfo.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.single
@@ -16,7 +16,7 @@ class BootViewModel @ViewModelInject constructor(private val bootInteractors: Bo
     val isBootDone: LiveData<Boolean>
         get() = _isBootDone
 
-    private var repos: GitRepoData? = null
+    private var repos: List<GitRepo>? = null
 
     fun boot() {
         showProgress()
@@ -31,10 +31,10 @@ class BootViewModel @ViewModelInject constructor(private val bootInteractors: Bo
         }
     }
 
-    private fun saveRepos(repos: GitRepoData) {
+    private fun saveRepos(repos: List<GitRepo>) {
         viewModelScope.launch {
-            repos.gitRepos?.let {
-                val result = bootInteractors.saveRepos.invoke(0,repos.gitRepos!!).single()
+            repos.let {
+                val result = bootInteractors.saveRepos.invoke(0,repos).single()
                 if (result)
                     _isBootDone.postValue(true)
                 else {

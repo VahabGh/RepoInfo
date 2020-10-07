@@ -1,8 +1,6 @@
 package com.vahabgh.repoinfo.presentation.ui.boot
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
