@@ -22,22 +22,10 @@ class RepoItemViewHolder(
     }
 
     fun bind(data: GitRepo) {
-
         with(binding) {
             setVariable(BR.listItem, data)
             executePendingBindings()
         }
-
-//        data.apply {
-//            val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-//            parser.timeZone = TimeZone.getTimeZone("UTC")
-//            Log.i(
-//                "ConvertDate",
-//                "${this.createDate} -> " + parser.parse(this.createDate).toString() + "time in milisecond : ${parser.calendar.timeInMillis}"
-//            )
-//        }
-
-
     }
 
 }

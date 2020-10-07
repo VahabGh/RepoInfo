@@ -1,5 +1,6 @@
 package com.vahabgh.repoinfo.framework
 
+import android.annotation.SuppressLint
 import com.vahabgh.core.data.ResponseData
 import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.core.domain.GitRepoData
@@ -7,6 +8,7 @@ import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.presentation.db.GitRepoEntity
+import java.text.SimpleDateFormat
 
 object GitRepoDataMapper {
 
@@ -32,6 +34,7 @@ object GitRepoDataMapper {
                     repoItem.nameWithOwner,
                     repoItem.name,
                     repoItem.createdAt as? String ?: " - ",
+                    convertDateToMillis(repoItem.createdAt as? String),
                     repoItem.description ?: "",
                     repoItem.forkCount,
                     repoItem.stargazerCount,
@@ -41,7 +44,6 @@ object GitRepoDataMapper {
             }
         }
     }
-
 
 
     fun getPageInfo(
@@ -65,6 +67,7 @@ object GitRepoDataMapper {
                     repoItem.nameWithOwner,
                     repoItem.name,
                     repoItem.createdAt as? String ?: " - ",
+                    convertDateToMillis(repoItem.createdAt as? String),
                     repoItem.description ?: "",
                     repoItem.forkCount,
                     repoItem.stargazerCount,
@@ -86,6 +89,7 @@ object GitRepoDataMapper {
                 repoItem.ownerName,
                 repoItem.repoName,
                 repoItem.createDate,
+                convertDateToMillis(repoItem.createDate),
                 repoItem.description,
                 repoItem.forkCount,
                 repoItem.starCount,
@@ -94,7 +98,16 @@ object GitRepoDataMapper {
             )
         }
 
-        return ResponseData.success(GitRepoData(PageInfo(pageIndex+1, "", ""), mappedItem))
+        return ResponseData.success(GitRepoData(PageInfo(pageIndex + 1, "", ""), mappedItem))
     }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun convertDateToMillis(createDate: String?): Long {
+        if (createDate == null) return 0
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+//            parser.timeZone = TimeZone.getTimeZone("UTC")
+        return parser.calendar.timeInMillis
+    }
+
 
 }
