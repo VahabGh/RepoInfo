@@ -80,11 +80,11 @@ class BootActivity : AppCompatActivity() {
     }
 
     private fun isFirstInstall(): Boolean {
-        return Preferences.preferences(this).getBoolean(ISFIRSTINSTALL, false)
+        return Preferences.preferences(applicationContext).getBoolean(ISFIRSTINSTALL, false)
     }
 
     private fun setFirstInstallTrue() {
-        Preferences.preferences(this).edit().putBoolean(ISFIRSTINSTALL, true).apply()
+        Preferences.preferences(applicationContext).edit().putBoolean(ISFIRSTINSTALL, true).apply()
     }
 
 }
