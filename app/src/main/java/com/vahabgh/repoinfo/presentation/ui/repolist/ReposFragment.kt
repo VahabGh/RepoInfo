@@ -46,7 +46,7 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
                 reposAdapter?.removeFooter()
             }
             ReposViewModel.PAGINATION_ERROR -> {
-                reposAdapter?.showErrorFooter("Operation failed")
+                reposAdapter?.showErrorFooter(rv_repo.context.getString(R.string.failed_operation_message))
             }
         }
 
