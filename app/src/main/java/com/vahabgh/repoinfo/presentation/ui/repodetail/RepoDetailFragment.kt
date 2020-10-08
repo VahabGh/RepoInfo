@@ -1,6 +1,5 @@
 package com.vahabgh.repoinfo.presentation.ui.repodetail
 
-import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs

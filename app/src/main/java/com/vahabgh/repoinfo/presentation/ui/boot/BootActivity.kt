@@ -2,6 +2,7 @@ package com.vahabgh.repoinfo.presentation.ui.boot
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
@@ -31,14 +32,15 @@ class BootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setContentView(this, R.layout.activity_boot)
-        bindObservable()
         initBinding()
+        bindObservable()
         setRetryButtonClickListener()
         boot()
     }
 
     private fun initBinding() {
         binding?.apply {
+            lifecycleOwner = this@BootActivity
             setVariable(BR.vm, viewModel)
             executePendingBindings()
         }

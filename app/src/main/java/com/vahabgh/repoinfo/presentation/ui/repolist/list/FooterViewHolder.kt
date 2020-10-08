@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vahabgh.repoinfo.BR
 import com.vahabgh.repoinfo.databinding.ViewHolderFooterLoadingBinding
 
-class FooterViewHolder(val binding : ViewHolderFooterLoadingBinding,val retryDelegate : () -> Unit)
+class FooterViewHolder(val binding : ViewHolderFooterLoadingBinding, private val retryDelegate : () -> Unit)
     : RecyclerView.ViewHolder(binding.root) {
 
     init {

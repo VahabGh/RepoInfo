@@ -6,23 +6,21 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel : ViewModel() {
 
-    private val _showLoading = MutableLiveData(true)
-    val showLoading : LiveData<Boolean>
-        get() = _showLoading
+    val showLoading = MutableLiveData(true)
 
-    private val _errorMessage = MutableLiveData("")
-    val errorMessage : LiveData<String>
-        get() = _errorMessage
+    val errorMessage = MutableLiveData<String>("The Operation Failed")
 
-    fun showProgress(){
-        _showLoading.value = true
+
+    open fun showProgress(){
+        showLoading.postValue(true)
     }
 
-    fun hideProgress(){
-        _showLoading.postValue(false)
+    open fun hideProgress(){
+        showLoading.postValue(false)
     }
 
-    fun setErrorMessage(errorMessage : String){
-        _errorMessage.value = errorMessage
+    open fun setErrorMessage(message : String?){
+        if (message.isNullOrEmpty()) return
+        errorMessage.postValue(message)
     }
 }

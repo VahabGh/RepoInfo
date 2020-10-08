@@ -1,9 +1,11 @@
 package com.vahabgh.repoinfo.presentation.ui.boot
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo.exception.ApolloException
 import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.repoinfo.framework.BootInteractors
 import com.vahabgh.repoinfo.presentation.ui.base.BaseViewModel
@@ -20,6 +22,7 @@ class BootViewModel @ViewModelInject constructor(private val bootInteractors: Bo
 
     fun boot() {
         showProgress()
+        Log.i("BootResponse","started")
         viewModelScope.launch {
             bootInteractors.getRepos.invoke(50).single().fold({
                 repos = it
@@ -27,26 +30,34 @@ class BootViewModel @ViewModelInject constructor(private val bootInteractors: Bo
             }, {
                 hideProgress()
                 _isBootDone.value = false
+                handleExceptionMessage(it)
             })
         }
     }
+
+    private fun handleExceptionMessage(exp : Throwable) {
+        if (exp is ApolloException)
+            setErrorMessage(exp.message)
+    }
+
 
     private fun saveRepos(repos: List<GitRepo>) {
         viewModelScope.launch {
             repos.let {
                 val result = bootInteractors.saveRepos.invoke(0,repos).single()
-                if (result)
-                    _isBootDone.value = true
+                if (result){
+                    _isBootDone.postValue(true)
+                }
                 else {
                     hideProgress()
-                    _isBootDone.value = false
+                    _isBootDone.postValue(false)
                 }
             }
         }
     }
 
     fun retry() {
-        if (repos != null)
+        if (repos == null)
             boot()
         else {
             showProgress()

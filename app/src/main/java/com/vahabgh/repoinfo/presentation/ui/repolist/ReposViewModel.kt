@@ -29,17 +29,21 @@ class ReposViewModel @ViewModelInject constructor(private val interactors: RepoL
         showProgress()
         viewModelScope.launch {
             interactors.getReposUseCase.invoke(pageIndex).single().fold({ data ->
-                hideProgress()
-                allItems.addAll(data)
-                _repos.value = data
+                if (!data.isNullOrEmpty()){
+                    allItems.addAll(data)
+                    _repos.value = data
+                } else {
+                    _pagination.value = PAGINATION_DONE
+                }
             }, {
-                hideProgress()
+                if (pageIndex>0){
+                   _pagination.value = PAGINATION_ERROR
+                }
             })
         }
     }
 
     companion object {
-        const val IN_PAGINATION = 0
         const val PAGINATION_DONE = 1
         const val PAGINATION_ERROR = 2
     }

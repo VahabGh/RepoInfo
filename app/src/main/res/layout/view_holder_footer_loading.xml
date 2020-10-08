@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Hello Guys there is an error Here :(" />
+            android:text="@string/failed_operation_message" />
 
         <Button
             android:id="@+id/btn_retry"

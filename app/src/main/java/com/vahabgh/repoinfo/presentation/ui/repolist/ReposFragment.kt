@@ -1,5 +1,7 @@
 package com.vahabgh.repoinfo.presentation.ui.repolist
 
+import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -78,8 +80,8 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
             if (sortState == SortState.ASC()) return@setOnClickListener
             sortState = SortState.ASC()
             reposAdapter?.sortAscending()
-            iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.textColorPrimary))
-            iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+            iv_sort_asc.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.selected_rounded_background)
+            iv_sort_des.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.deselected_rounded_background)
             iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
             iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.colorBackground))
         }
@@ -88,8 +90,8 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
             if (sortState == SortState.DES()) return@setOnClickListener
             sortState = SortState.DES()
             reposAdapter?.sortDescending()
-            iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
-            iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.textColorPrimary))
+            iv_sort_asc.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.deselected_rounded_background)
+            iv_sort_des.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.selected_rounded_background)
             iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.colorBackground))
             iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
         }
@@ -97,8 +99,8 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
 
     private fun noSortedState(){
         sortState = SortState.NOTHING() // when a new page of data is came the list is not completely sorted
-        iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
-        iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+        iv_sort_asc.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.deselected_rounded_background)
+        iv_sort_des.background = ContextCompat.getDrawable(iv_sort.context,R.drawable.deselected_rounded_background)
 
         iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
         iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
