@@ -18,13 +18,14 @@
 
         <ImageView
             android:id="@+id/iv_repo"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="@dimen/xxx_space"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/colorAccent"
+            app:tint="@color/colorPrimary"
+            android:src="@drawable/ic_git"
             android:contentDescription="@string/its_repo_icon"
              />
 
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:text="@{listItem.repoName}"
-            android:layout_marginStart="@dimen/xxx_space"
+            android:layout_marginStart="@dimen/xx_space"
             android:layout_marginEnd="@dimen/xxx_space"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_repo"
@@ -49,9 +50,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{listItem.createDate}"
-            android:layout_marginStart="@dimen/xxx_space"
+            android:layout_marginStart="@dimen/xx_space"
             app:layout_constraintStart_toEndOf="@id/iv_repo"
-            app:layout_constraintBottom_toBottomOf="@id/iv_repo"
+            app:layout_constraintTop_toBottomOf="@id/iv_repo"
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/x_text_size"
             tools:text="RepoName" />

@@ -22,22 +22,23 @@
 
     <ImageView
         android:id="@+id/iv_repo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="@dimen/xxxx_space"
         android:layout_marginStart="@dimen/xxx_space"
+        android:src="@drawable/ic_repository"
+        app:tint="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/it_is_git_logo"
-        android:background="@color/colorAccent"/>
+        android:contentDescription="@string/it_is_git_logo"/>
 
     <TextView
         android:id="@+id/tv_repo_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/xxx_text_size"
-        android:textColor="@color/textColorPrimary"
-        android:layout_marginStart="@dimen/xxx_space"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/xx_space"
         android:text="@{gitRepo.ownerName}"
         app:layout_constraintTop_toTopOf="@id/iv_repo"
         app:layout_constraintBottom_toBottomOf="@id/iv_repo"
@@ -45,32 +46,88 @@
         tools:text="VahabGh/repoName"
         />
 
-    <View
-        android:id="@+id/v_stars"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="@dimen/xxxx_space"
-        tools:background="@color/textColorPrimary"
+    <ImageView
+        android:id="@+id/iv_star"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:src="@drawable/ic_star"
+        app:tint="@color/colorPrimary"
+        android:contentDescription="@string/star"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/xxx_space"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/first"
+        app:layout_constraintTop_toBottomOf="@id/iv_fork"/>
+
+    <TextView
+        android:id="@+id/tv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/star"
+        android:textSize="@dimen/xx_text_size"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintTop_toTopOf="@id/iv_star"
+        app:layout_constraintBottom_toBottomOf="@id/iv_star"
+        app:layout_constraintStart_toEndOf="@id/iv_star"
+        />
+
+    <TextView
+        android:id="@+id/tv_star_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="21"
+        android:textSize="@dimen/xx_text_size"
+        android:text="@{gitRepo.starCount}"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintTop_toTopOf="@id/tv_star"
+        app:layout_constraintBottom_toBottomOf="@id/tv_star"
+        app:layout_constraintStart_toEndOf="@id/tv_star"
+        />
+
+    <ImageView
+        android:id="@+id/iv_fork"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:src="@drawable/ic_branch"
+        app:tint="@color/colorPrimary"
+        android:contentDescription="fork"
+        android:layout_marginStart="@dimen/xxx_space"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_repo"/>
 
-    <View
-        android:id="@+id/v_fork"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="@dimen/xxxx_space"
-        tools:background="@color/textColorPrimary"
-        app:layout_constraintStart_toEndOf="@id/first"
-        app:layout_constraintEnd_toStartOf="@id/second"
-        app:layout_constraintTop_toBottomOf="@id/iv_repo"/>
+    <TextView
+        android:id="@+id/tv_fork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fork"
+        android:textSize="@dimen/xx_text_size"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintTop_toTopOf="@id/iv_fork"
+        app:layout_constraintBottom_toBottomOf="@id/iv_fork"
+        app:layout_constraintStart_toEndOf="@id/iv_fork"
+        />
+
+    <TextView
+        android:id="@+id/tv_fork_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="21"
+        android:textSize="@dimen/xx_text_size"
+        android:text="@{gitRepo.forkCount}"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintTop_toTopOf="@id/iv_fork"
+        app:layout_constraintBottom_toBottomOf="@id/iv_fork"
+        app:layout_constraintStart_toEndOf="@id/tv_fork"
+        />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_percent="0.50" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/second"
@@ -79,6 +136,39 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.66" />
 
+
+
+
+    <ImageView
+        android:id="@+id/iv_clone"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="@string/clone_this_repo_here"
+        android:src="@drawable/ic_url"
+        app:tint="@color/colorPrimary"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/xxx_space"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_star"
+        />
+
+    <TextView
+        android:id="@+id/tv_clone_url"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="sdlknsdvlksdnvlknsdvlksndvlksndvlksdnvlksndvlksndvklnsdlkvnsldkvn"
+        android:gravity="start"
+        android:layout_marginEnd="@dimen/xxx_space"
+        android:text="@{gitRepo.repoUrl}"
+        android:textSize="@dimen/x_text_size"
+        android:autoLink="web"
+        android:textColor="@color/textColorPrimary"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintStart_toEndOf="@id/iv_clone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_star"
+        />
 
     <TextView
         android:id="@+id/tv_repo_desc"
@@ -89,9 +179,43 @@
         android:layout_marginStart="@dimen/xxx_space"
         android:layout_marginEnd="@dimen/xxx_space"
         android:text="@{gitRepo.description}"
-        app:layout_constraintTop_toBottomOf="@id/v_fork"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_date"
         tools:text="Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it. Hello this is description for public repository which i have no idea about it and whats in it."
         />
+
+    <ImageView
+        android:id="@+id/tv_create_date"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@string/created_at"
+        android:textSize="@dimen/x_text_size"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/xxx_space"
+        android:src="@drawable/ic_date"
+        app:tint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_clone"
+        />
+
+    <TextView
+        android:id="@+id/tv_create_date_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="sdlknsdvlksdnvlknsdvlksndvlksndvlksdnvlksndvlksndvklnsdlkvnsldkvn"
+        android:gravity="start"
+        android:layout_marginEnd="@dimen/xxx_space"
+        android:text="@{gitRepo.createDate}"
+        android:textSize="@dimen/x_text_size"
+        android:textColor="@color/textColorSecondary"
+        android:layout_marginTop="@dimen/xxx_space"
+        android:layout_marginStart="@dimen/x_space"
+        app:layout_constraintStart_toEndOf="@id/tv_create_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_clone"
+        />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,8 @@
     <string name="retry">Retry</string>
     <string name="its_repo_icon">Its Repo icon</string>
     <string name="it_is_git_logo">It is git logo</string>
+    <string name="fork">fork : </string>
+    <string name="star">star : </string>
+    <string name="clone_this_repo_here">Clone repo here :</string>
+    <string name="created_at">Created at</string>
 </resources>
