@@ -20,15 +20,15 @@
         tools:context=".presentation.ui.boot.BootActivity">
 
         <ImageView
-            android:contentDescription="@string/it_is_git_logo"
             android:id="@+id/iv_logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_git_hub"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/git_hub_typo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/github"
             app:tint="@color/colorPrimary" />
 
         <ProgressBar

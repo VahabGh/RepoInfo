@@ -88,4 +88,22 @@ class ReposAdapter(
             notifyItemChanged(items.lastIndex)
         }
     }
+
+
+    fun sortDescending() {
+        val sortedItems = items.filterIsInstance<GitRepo>().sortedByDescending { it.createDateInMillis }.toMutableList()
+        items.clear()
+        items.addAll(sortedItems)
+        addFooter()
+        notifyDataSetChanged()
+    }
+
+    fun sortAscending() {
+        val sortedItems = items.filterIsInstance<GitRepo>().sortedBy { it.createDateInMillis }.toMutableList()
+        items.clear()
+        items.addAll(sortedItems)
+        addFooter()
+        notifyDataSetChanged()
+    }
+
 }

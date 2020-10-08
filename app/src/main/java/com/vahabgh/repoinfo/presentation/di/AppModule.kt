@@ -3,7 +3,6 @@ package com.vahabgh.repoinfo.presentation.di
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vahabgh.repoinfo.framework.RepoListDataSource
 import com.vahabgh.repoinfo.presentation.app.HiltRepoInfoApp
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import dagger.Module

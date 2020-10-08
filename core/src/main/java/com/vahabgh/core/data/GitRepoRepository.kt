@@ -1,7 +1,6 @@
 package com.vahabgh.core.data
 
 import com.vahabgh.core.domain.GitRepo
-import com.vahabgh.core.domain.PageInfo
 
 class GitRepoRepository(private val gitRepoDataSource: GitRepoDataSource) {
 

@@ -6,7 +6,6 @@ import com.apollographql.apollo.exception.ApolloException
 import com.vahabgh.core.data.GitRepoDataSource
 import com.vahabgh.core.data.ResponseData
 import com.vahabgh.core.domain.GitRepo
-import com.vahabgh.core.domain.GitRepoData
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
@@ -21,23 +20,31 @@ class GitRepoDataSourceImpl(
     private val apolloClient: ApolloClient,
     private val dataBase: GitRepoDatabase,
     private val firstItemsQuery: GetFirstListOfRepositoriesQuery,
-    private val query: GetListOfRepoQuery
+    private val query: GetListOfRepoQuery,
+    private val mapper: GitRepoDataMapper
 ) : GitRepoDataSource {
 
-    override suspend fun getFirstItems(firstItemCount: Int): Flow<ResponseData<GitRepoData>> {
+    override suspend fun getFirstItems(firstItemCount: Int): Flow<ResponseData<List<GitRepo>>> {
         return flow {
             try {
                 val response = apolloClient.query(firstItemsQuery).await()
                 val repoList =
-                    GitRepoDataMapper.mapRepoListFromServerFirst(response.data?.search?.edges)
-                val pageInfo =
-                    GitRepoDataMapper.getPageInfoFirst(1, response.data?.search?.pageInfo)
-                dataBase.gitRepoDao().insertLastPage(LastPageEntity(0, pageInfo?.start ?: "", pageInfo?.end ?: ""))
-                emit(
-                    ResponseData.success(
-                        GitRepoData(pageInfo, repoList)
+                    mapper.mapRepoListFromServerFirst(response.data?.search?.edges)
+                dataBase.gitRepoDao()
+                    .insertLastPage(
+                        LastPageEntity(
+                            0,
+                            response.data?.search?.pageInfo?.startCursor ?: "",
+                            response.data?.search?.pageInfo?.endCursor ?: ""
+                        )
                     )
-                )
+                repoList?.let {
+                    emit(
+                        ResponseData.success(repoList)
+                    )
+                } ?: emit(ResponseData.error(Exception("There is no data right now")))
+
+
             } catch (e: ApolloException) {
                 emit(ResponseData.error(e))
             }
@@ -47,7 +54,7 @@ class GitRepoDataSourceImpl(
 
     override suspend fun saveRepos(pageIndex: Int, repos: List<GitRepo>): Flow<Boolean> {
         return flow {
-            saveReposInDb(pageIndex,repos)
+            saveReposInDb(pageIndex, repos)
             emit(true)
         }.flowOn(Dispatchers.IO)
     }
@@ -68,53 +75,57 @@ class GitRepoDataSourceImpl(
         })
     }
 
-    override suspend fun getRepos(pageIndex: Int): Flow<ResponseData<GitRepoData>> {
+    override suspend fun getRepos(pageIndex: Int): Flow<ResponseData<List<GitRepo>>> {
         return flow {
             val localData = dataBase.gitRepoDao().getAllByPageIndex(pageIndex)
             if (localData.isNullOrEmpty()) {
                 val remoteData = getDataFromServer()
-                remoteData.data?.gitRepos?.let {
+                remoteData.data?.let {
                     saveReposInDb(pageIndex, it)
                 }
                 emit(remoteData)
             } else
-                emit(GitRepoDataMapper.mapDataFromDb(localData))
+                emit(mapper.mapDataFromDb(localData))
         }.flowOn(Dispatchers.IO)
     }
 
-    private suspend fun getDataFromServer(): ResponseData<GitRepoData> {
+    private suspend fun getDataFromServer(): ResponseData<List<GitRepo>> {
         return try {
             val lastPage = dataBase.gitRepoDao().getLastPage(0)
             val newQuery = query.copy(start = lastPage.startC, end = lastPage.endC)
             val response = apolloClient.query(newQuery).await()
-            val repoList = GitRepoDataMapper.mapRepoListFromServer(response.data?.search?.edges)
-            val pageInfo = GitRepoDataMapper.getPageInfo(1, response.data?.search?.pageInfo)
-            dataBase.gitRepoDao().update(0,
+            val repoList = mapper.mapRepoListFromServer(response.data?.search?.edges)
+            dataBase.gitRepoDao().update(
+                0,
                 response.data?.search?.pageInfo?.startCursor ?: "",
-                response.data?.search?.pageInfo?.endCursor ?: "")
-
-            ResponseData.success(
-                GitRepoData(pageInfo, repoList)
+                response.data?.search?.pageInfo?.endCursor ?: ""
             )
+            repoList?.let {
+                ResponseData.success(repoList)
+            } ?: ResponseData.error(Exception("there is no data right now"))
+
         } catch (e: ApolloException) {
             ResponseData.error(e)
         }
     }
 
     override suspend fun getRepoById(id: String): Flow<ResponseData<GitRepo>> {
-        return flow<ResponseData<GitRepo>> {
+        return flow {
             dataBase.gitRepoDao().getById(id).apply {
-                emit(ResponseData.success(GitRepo(
-                    this.repoId,
-                    this.ownerName,
-                    this.repoName,
-                    this.createDate,
-                    this.description,
-                    this.forkCount.toString(),
-                    this.starCount.toString(),
-                    null,
-                    this.repoUrl
-                )))
+                emit(
+                    ResponseData.success(
+                        GitRepo(
+                            this.repoId,
+                            this.ownerName,
+                            this.repoName,
+                            this.createDate,
+                            mapper.convertDateToMillis(this.createDate),
+                            this.description,
+                            this.forkCount.toString(),
+                            this.starCount.toString(),
+                            this.repoUrl)
+                    )
+                )
                 return@flow
             }
         }.flowOn(Dispatchers.IO)

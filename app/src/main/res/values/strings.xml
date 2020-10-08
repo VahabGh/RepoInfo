@@ -8,4 +8,9 @@
     <string name="star">star : </string>
     <string name="clone_this_repo_here">Clone repo here :</string>
     <string name="created_at">Created at</string>
+    <string name="sort_repos">Sort repos :</string>
+    <string name="sort">Sort</string>
+    <string name="ascending_sort">Ascending Sort</string>
+    <string name="descending_sort">Descending Sort</string>
+    <string name="github">GitHub</string>
 </resources>

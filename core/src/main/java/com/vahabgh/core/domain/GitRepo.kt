@@ -5,9 +5,9 @@ data class GitRepo (
     val ownerName : String,
     val repoName : String,
     val createDate : String,
+    val createDateInMillis : Long,
     val description : String?,
     val forkCount : String,
     val starCount : String,
-    val collaborators: List<Collaborator>?,
     val repoUrl : String?
 )
