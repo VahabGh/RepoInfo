@@ -12,21 +12,6 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object RepoDetailModule {
-//
-//    @Provides
-//    @ActivityRetainedScoped
-//    fun provideDataSource(
-//        gitRepoDatabase: GitRepoDatabase
-//    ): RepoDetailDataSource {
-//        return RepoDetailDataSource(gitRepoDatabase)
-//    }
-
-//    @Provides
-//    @Qualifiers.RepoDetail
-//    @ActivityRetainedScoped
-//    fun provideGitRepoRepository(dataSource: GitRepoDataSource): GitRepoRepository {
-//        return GitRepoRepository(dataSource)
-//    }
 
     @Provides
     @ActivityRetainedScoped

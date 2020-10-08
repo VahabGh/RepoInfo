@@ -4,4 +4,9 @@
     <string name="retry">Retry</string>
     <string name="its_repo_icon">Its Repo icon</string>
     <string name="it_is_git_logo">It is git logo</string>
+    <string name="sort_repos">Sort repos :</string>
+    <string name="sort">Sort</string>
+    <string name="ascending_sort">Ascending Sort</string>
+    <string name="descending_sort">Descending Sort</string>
+    <string name="github">GitHub</string>
 </resources>

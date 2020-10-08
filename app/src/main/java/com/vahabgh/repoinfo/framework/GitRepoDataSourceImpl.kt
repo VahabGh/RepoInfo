@@ -124,9 +124,7 @@ class GitRepoDataSourceImpl(
                             this.description,
                             this.forkCount,
                             this.starCount,
-                            null,
-                            this.repoUrl
-                        )
+                            null)
                     )
                 )
                 return@flow

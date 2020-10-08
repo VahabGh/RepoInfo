@@ -36,10 +36,10 @@ class BootViewModel @ViewModelInject constructor(private val bootInteractors: Bo
             repos.let {
                 val result = bootInteractors.saveRepos.invoke(0,repos).single()
                 if (result)
-                    _isBootDone.postValue(true)
+                    _isBootDone.value = true
                 else {
                     hideProgress()
-                    _isBootDone.postValue(false)
+                    _isBootDone.value = false
                 }
             }
         }

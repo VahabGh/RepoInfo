@@ -37,7 +37,7 @@ object BootModule {
     }
 
     @Provides
-    @Qualifiers.Main
+    @Qualifiers.Boot
     @ActivityRetainedScoped
     fun provideGitDataMapper(): GitRepoDataMapper {
         return GitRepoDataMapper()

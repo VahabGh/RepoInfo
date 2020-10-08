@@ -24,7 +24,6 @@ class GitRepoDataMapper {
                     repoItem.description ?: "",
                     repoItem.forkCount,
                     repoItem.stargazerCount,
-                    null,
                     repoItem.url as? String ?: ""
                 )
             }
@@ -43,7 +42,6 @@ class GitRepoDataMapper {
                     repoItem.description ?: "",
                     repoItem.forkCount,
                     repoItem.stargazerCount,
-                    null,
                     repoItem.url as? String ?: ""
                 )
             }
@@ -61,7 +59,6 @@ class GitRepoDataMapper {
                 repoItem.description,
                 repoItem.forkCount,
                 repoItem.starCount,
-                null,
                 repoItem.repoUrl
             )
         }

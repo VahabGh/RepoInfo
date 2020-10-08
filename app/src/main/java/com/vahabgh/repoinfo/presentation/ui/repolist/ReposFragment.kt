@@ -40,9 +40,6 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     private fun handlePagination(paginateState: Int?) {
 
         when (paginateState) {
-            ReposViewModel.IN_PAGINATION -> {
-
-            }
             ReposViewModel.PAGINATION_DONE -> {
                 reposAdapter?.removeFooter()
             }
@@ -58,15 +55,53 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
             reposAdapter = ReposAdapter(items as MutableList<Any>, ::onItemClick, ::retryDelegate)
             reposAdapter!!.addFooter()
             rv_repo.adapter = reposAdapter
-        } else reposAdapter!!.addItems(items as MutableList<Any>)
+        } else {
+            reposAdapter!!.addItems(items as MutableList<Any>)
+        }
+
+        noSortedState()
     }
 
     override fun config() {
         if (viewModel.repo.value != null) {
             return
         }
+        setSortClickListener()
         addScrollListener()
         viewModel.getAllRepos(pageIndex)
+    }
+
+    var sortState: SortState = SortState.NOTHING()
+
+    private fun setSortClickListener() {
+        iv_sort_asc.setOnClickListener {
+            if (sortState == SortState.ASC()) return@setOnClickListener
+            sortState = SortState.ASC()
+            reposAdapter?.sortAscending()
+            iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.textColorPrimary))
+            iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+            iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
+            iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.colorBackground))
+        }
+
+        iv_sort_des.setOnClickListener {
+            if (sortState == SortState.DES()) return@setOnClickListener
+            sortState = SortState.DES()
+            reposAdapter?.sortDescending()
+            iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+            iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.textColorPrimary))
+            iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.colorBackground))
+            iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
+        }
+    }
+
+    private fun noSortedState(){
+        sortState = SortState.NOTHING() // when a new page of data is came the list is not completely sorted
+        iv_sort_asc.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+        iv_sort_des.setBackgroundColor(iv_sort_asc.context.getColor(R.color.colorBackground))
+
+        iv_sort_des.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
+        iv_sort_asc.setColorFilter(iv_sort_asc.context.getColor(R.color.textColorSecondary))
     }
 
     private fun addScrollListener() {
@@ -86,6 +121,22 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     private fun retryDelegate() {
         reposAdapter?.hideFooterError()
         viewModel.getAllRepos(pageIndex)
+    }
+
+
+    sealed class SortState {
+
+        class ASC : SortState(){
+            override fun image() = R.drawable.ic_acs
+        }
+        class DES : SortState(){
+            override fun image() = R.drawable.ic_desc
+        }
+        class NOTHING : SortState(){
+            override fun image() = R.drawable.ic_sort
+        }
+
+        abstract fun image() : Int
     }
 
 }

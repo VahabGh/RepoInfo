@@ -23,26 +23,18 @@ class ReposViewModel @ViewModelInject constructor(private val interactors: RepoL
     val pagination: LiveData<Int>
         get() = _pagination
 
+    private var allItems : MutableList<GitRepo> =  mutableListOf()
 
     fun getAllRepos(pageIndex: Int) {
         showProgress()
         viewModelScope.launch {
             interactors.getReposUseCase.invoke(pageIndex).single().fold({ data ->
                 hideProgress()
-                _repos.value = sortData(data as MutableList<GitRepo>)
+                allItems.addAll(data)
+                _repos.value = data
             }, {
                 hideProgress()
             })
-        }
-    }
-
-    var descending = true
-
-    private fun sortData(data: MutableList<GitRepo>): MutableList<GitRepo>? {
-        return if (descending) {
-            data.sortedByDescending { it.createDateInMillis }.toMutableList()
-        } else {
-            data.sortedBy { it.createDateInMillis }.toMutableList()
         }
     }
 

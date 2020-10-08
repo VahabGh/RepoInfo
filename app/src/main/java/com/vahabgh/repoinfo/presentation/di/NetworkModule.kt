@@ -9,6 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -28,6 +29,7 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient() : OkHttpClient{
         return OkHttpClient.Builder()
+            .connectTimeout(10,TimeUnit.SECONDS)
             .addInterceptor {chain->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", BuildConfig.ACCECC_TOKEN)
