@@ -24,7 +24,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "SERVER_URL", '"https://api.github.com/graphql"'
-        buildConfigField "String", "ACCECC_TOKEN", '"bearer 7f2038391dae8972d913a85f79ed424bc16e86a2"'
+        buildConfigField "String", "ACCECC_TOKEN", '"bearer cd1c1b549887d54a645e0c1efe6b17e0dbe8189b"'
 
     }
 
