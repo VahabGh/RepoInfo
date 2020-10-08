@@ -7,7 +7,6 @@ import com.vahabgh.core.data.GitRepoDataSource
 import com.vahabgh.core.data.ResponseData
 import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.core.domain.GitRepoData
-import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import com.vahabgh.repoinfo.presentation.db.GitRepoEntity
@@ -49,8 +48,8 @@ class BootDataSource @Inject constructor(
                     it.repoName,
                     it.createDate,
                     it.description,
-                    it.forkCount,
-                    it.starCount,
+                    it.forkCount.toInt(),
+                    it.starCount.toInt(),
                     it.repoUrl,
                     pageIndex
                 )

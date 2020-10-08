@@ -37,8 +37,8 @@ class RepoDetailDataSource @Inject constructor(
                     this.repoName,
                     this.createDate,
                     this.description,
-                    this.forkCount,
-                    this.starCount,
+                    this.forkCount.toString(),
+                    this.starCount.toString(),
                     null,
                     this.repoUrl
                 )

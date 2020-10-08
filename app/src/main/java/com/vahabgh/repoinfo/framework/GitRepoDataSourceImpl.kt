@@ -7,7 +7,6 @@ import com.vahabgh.core.data.GitRepoDataSource
 import com.vahabgh.core.data.ResponseData
 import com.vahabgh.core.domain.GitRepo
 import com.vahabgh.core.domain.GitRepoData
-import com.vahabgh.core.domain.PageInfo
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
@@ -17,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import java.lang.Exception
 
 class GitRepoDataSourceImpl(
     private val apolloClient: ApolloClient,
@@ -62,8 +60,8 @@ class GitRepoDataSourceImpl(
                 it.repoName,
                 it.createDate,
                 it.description,
-                it.forkCount,
-                it.starCount,
+                it.forkCount.toInt(),
+                it.starCount.toInt(),
                 it.repoUrl,
                 pageIndex
             )
@@ -112,8 +110,8 @@ class GitRepoDataSourceImpl(
                     this.repoName,
                     this.createDate,
                     this.description,
-                    this.forkCount,
-                    this.starCount,
+                    this.forkCount.toString(),
+                    this.starCount.toString(),
                     null,
                     this.repoUrl
                 )))

@@ -33,8 +33,8 @@ object GitRepoDataMapper {
                     repoItem.name,
                     repoItem.createdAt as? String ?: " - ",
                     repoItem.description ?: "",
-                    repoItem.forkCount,
-                    repoItem.stargazerCount,
+                    repoItem.forkCount.toString(),
+                    repoItem.stargazerCount.toString(),
                     null,
                     repoItem.url as? String ?: ""
                 )
@@ -66,8 +66,8 @@ object GitRepoDataMapper {
                     repoItem.name,
                     repoItem.createdAt as? String ?: " - ",
                     repoItem.description ?: "",
-                    repoItem.forkCount,
-                    repoItem.stargazerCount,
+                    repoItem.forkCount.toString(),
+                    repoItem.stargazerCount.toString(),
                     null,
                     repoItem.url as? String ?: ""
                 )
@@ -87,8 +87,8 @@ object GitRepoDataMapper {
                 repoItem.repoName,
                 repoItem.createDate,
                 repoItem.description,
-                repoItem.forkCount,
-                repoItem.starCount,
+                repoItem.forkCount.toString(),
+                repoItem.starCount.toString(),
                 null,
                 repoItem.repoUrl
             )

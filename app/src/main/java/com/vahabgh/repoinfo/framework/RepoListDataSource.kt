@@ -37,8 +37,8 @@ class RepoListDataSource @Inject constructor(
                     it.repoName,
                     it.createDate,
                     it.description,
-                    it.forkCount,
-                    it.starCount,
+                    it.forkCount.toInt(),
+                    it.starCount.toInt(),
                     it.repoUrl,
                     pageIndex
                 )
