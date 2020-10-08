@@ -11,4 +11,12 @@ data class GitRepo (
     val starCount : Int,
     val collaborators: List<Collaborator>?,
     val repoUrl : String?
-)
+) /*: Comparable<GitRepo> {
+    override fun compareTo(other: GitRepo): Int {
+        return when {
+            createDateInMillis > other.createDateInMillis -> 1
+            createDateInMillis < other.createDateInMillis -> -1
+            else -> 0
+        }
+    }
+}*/

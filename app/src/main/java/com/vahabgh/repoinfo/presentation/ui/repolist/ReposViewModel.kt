@@ -9,6 +9,7 @@ import com.vahabgh.repoinfo.framework.RepoListInteractors
 import com.vahabgh.repoinfo.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ReposViewModel @ViewModelInject constructor(private val interactors: RepoListInteractors) :
     BaseViewModel() {
@@ -28,24 +29,24 @@ class ReposViewModel @ViewModelInject constructor(private val interactors: RepoL
         viewModelScope.launch {
             interactors.getReposUseCase.invoke(pageIndex).single().fold({ data ->
                 hideProgress()
-                _repos.value = sortData(data)
+                _repos.value = sortData(data as MutableList<GitRepo>)
             }, {
                 hideProgress()
             })
         }
     }
 
-    var  descending = true
+    var descending = true
 
-    private fun sortData(data: List<GitRepo>): List<GitRepo>? {
-        return if (descending){
-            data.sortedByDescending { it.createDateInMillis }
+    private fun sortData(data: MutableList<GitRepo>): MutableList<GitRepo>? {
+        return if (descending) {
+            data.sortedByDescending { it.createDateInMillis }.toMutableList()
         } else {
-            data.sortedBy { it.createDateInMillis }
+            data.sortedBy { it.createDateInMillis }.toMutableList()
         }
     }
 
-    companion object{
+    companion object {
         const val IN_PAGINATION = 0
         const val PAGINATION_DONE = 1
         const val PAGINATION_ERROR = 2

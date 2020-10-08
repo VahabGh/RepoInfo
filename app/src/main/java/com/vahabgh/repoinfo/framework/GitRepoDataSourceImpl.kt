@@ -21,7 +21,8 @@ class GitRepoDataSourceImpl(
     private val apolloClient: ApolloClient,
     private val dataBase: GitRepoDatabase,
     private val firstItemsQuery: GetFirstListOfRepositoriesQuery,
-    private val query: GetListOfRepoQuery
+    private val query: GetListOfRepoQuery,
+    private val mapper: GitRepoDataMapper
 ) : GitRepoDataSource {
 
     override suspend fun getFirstItems(firstItemCount: Int): Flow<ResponseData<List<GitRepo>>> {
@@ -29,7 +30,7 @@ class GitRepoDataSourceImpl(
             try {
                 val response = apolloClient.query(firstItemsQuery).await()
                 val repoList =
-                    GitRepoDataMapper.mapRepoListFromServerFirst(response.data?.search?.edges)
+                    mapper.mapRepoListFromServerFirst(response.data?.search?.edges)
                 dataBase.gitRepoDao()
                     .insertLastPage(
                         LastPageEntity(
@@ -85,7 +86,7 @@ class GitRepoDataSourceImpl(
                 }
                 emit(remoteData)
             } else
-                emit(GitRepoDataMapper.mapDataFromDb(localData))
+                emit(mapper.mapDataFromDb(localData))
         }.flowOn(Dispatchers.IO)
     }
 
@@ -94,7 +95,7 @@ class GitRepoDataSourceImpl(
             val lastPage = dataBase.gitRepoDao().getLastPage(0)
             val newQuery = query.copy(start = lastPage.startC, end = lastPage.endC)
             val response = apolloClient.query(newQuery).await()
-            val repoList = GitRepoDataMapper.mapRepoListFromServer(response.data?.search?.edges)
+            val repoList = mapper.mapRepoListFromServer(response.data?.search?.edges)
             dataBase.gitRepoDao().update(
                 0,
                 response.data?.search?.pageInfo?.startCursor ?: "",
@@ -119,7 +120,7 @@ class GitRepoDataSourceImpl(
                             this.ownerName,
                             this.repoName,
                             this.createDate,
-                            GitRepoDataMapper.convertDateToMillis(this.createDate),
+                            mapper.convertDateToMillis(this.createDate),
                             this.description,
                             this.forkCount,
                             this.starCount,

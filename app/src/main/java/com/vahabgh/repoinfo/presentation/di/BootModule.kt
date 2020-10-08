@@ -8,6 +8,7 @@ import com.vahabgh.core.interactors.SaveReposUseCase
 import com.vahabgh.repoinfo.GetFirstListOfRepositoriesQuery
 import com.vahabgh.repoinfo.GetListOfRepoQuery
 import com.vahabgh.repoinfo.framework.BootInteractors
+import com.vahabgh.repoinfo.framework.GitRepoDataMapper
 import com.vahabgh.repoinfo.framework.GitRepoDataSourceImpl
 import com.vahabgh.repoinfo.presentation.db.GitRepoDatabase
 import dagger.Module
@@ -20,19 +21,6 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object BootModule {
-
-//
-//    @Provides
-//    @ActivityRetainedScoped
-//    fun provideGetRepoQuery(): GetFirstListOfRepositoriesQuery {
-//        return GetFirstListOfRepositoriesQuery()
-//    }
-//
-//    @Provides
-//    @ActivityRetainedScoped
-//    fun provideDataSource(apolloClient: ApolloClient,query: GetFirstListOfRepositoriesQuery,gitRepoDatabase: GitRepoDatabase) : GitRepoDataSource{
-//        return BootDataSource(apolloClient, query,gitRepoDatabase)
-//    }
 
     @Provides
     @Qualifiers.Boot
@@ -49,15 +37,23 @@ object BootModule {
     }
 
     @Provides
+    @Qualifiers.Main
+    @ActivityRetainedScoped
+    fun provideGitDataMapper(): GitRepoDataMapper {
+        return GitRepoDataMapper()
+    }
+
+    @Provides
     @Qualifiers.Boot
     @ActivityRetainedScoped
     fun provideDataSource(
         apolloClient: ApolloClient,
         gitRepoDatabase: GitRepoDatabase,
         @Qualifiers.Boot query: GetListOfRepoQuery,
-        @Qualifiers.Boot queryFirst: GetFirstListOfRepositoriesQuery
+        @Qualifiers.Boot queryFirst: GetFirstListOfRepositoriesQuery,
+        @Qualifiers.Boot mapper: GitRepoDataMapper
     ): GitRepoDataSource {
-        return GitRepoDataSourceImpl(apolloClient,gitRepoDatabase, queryFirst,query)
+        return GitRepoDataSourceImpl(apolloClient,gitRepoDatabase, queryFirst,query,mapper)
     }
 
     @Provides
