@@ -33,13 +33,14 @@
             android:id="@+id/tv_repo_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:gravity="start|center"
             android:text="@{listItem.repoName}"
             android:layout_marginStart="@dimen/xx_space"
             android:layout_marginEnd="@dimen/xxx_space"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_repo"
             app:layout_constraintTop_toTopOf="@id/iv_repo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_repo"
             android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/xx_text_size"
             tools:text="RepoName" />
@@ -50,17 +51,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{listItem.createDate}"
+            android:layout_marginTop="@dimen/x_space"
             android:layout_marginStart="@dimen/xx_space"
             app:layout_constraintStart_toEndOf="@id/iv_repo"
             app:layout_constraintTop_toBottomOf="@id/iv_repo"
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/x_text_size"
             tools:text="RepoName" />
-
-        <FrameLayout
-            android:id="@+id/view_click"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,6 @@
             android:layout_marginTop="@dimen/xx_space"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_sort"
-            android:background="@color/textColorPrimary"
             android:src="@drawable/ic_acs"
             app:tint="@color/textColorSecondary"
             android:contentDescription="@string/ascending_sort"

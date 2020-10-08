@@ -63,12 +63,12 @@ class ReposFragment : BaseFragment<ReposViewModel, FragmentReposBinding>() {
     }
 
     override fun config() {
-        if (viewModel.repo.value != null) {
-            return
-        }
+        noSortedState()
         setSortClickListener()
         addScrollListener()
-        viewModel.getAllRepos(pageIndex)
+        if (viewModel.repo.value == null) {
+            viewModel.getAllRepos(pageIndex)
+        }
     }
 
     var sortState: SortState = SortState.NOTHING()
